@@ -736,8 +736,39 @@
     if (dodges >= lines.length - 1) approve(); else dodge(e);
   });
 
+  // ---- Where the answers go ----
+  // NTFY_TOPIC: push notification to your phone via the free ntfy app (subscribe to this topic).
+  // FORMSPREE_ID: optional. Paste your Formspree form ID (e.g. "xyzabcd") to also get an email + a saved log.
+  const NTFY_TOPIC = 'bfform-tnivsx-r7q2m9k4';
+  const FORMSPREE_ID = '';
+
+  function who() {
+    const n = document.getElementById('toName').textContent;
+    return n === 'You, from Hinge' ? 'Someone (no name in link)' : n;
+  }
+  function send(title, data, tags) {
+    const body = Object.entries(data).map(([k, v]) => k + ': ' + v).join('\n');
+    if (NTFY_TOPIC) {
+      fetch('https://ntfy.sh/' + NTFY_TOPIC, { method: 'POST', body, headers: { Title: title, Tags: tags } }).catch(() => {});
+    }
+    if (FORMSPREE_ID) {
+      fetch('https://formspree.io/f/' + FORMSPREE_ID, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(Object.assign({ _subject: title }, data))
+      }).catch(() => {});
+    }
+  }
+
   function approve() {
     const choice = document.querySelector('input[name="date"]:checked');
+    send(who() + ' approved your application!', {
+      'Name': who(),
+      'First date': choice ? choice.value : 'Surprise me',
+      'Mullet & moustache add-on': document.getElementById('mullet').checked ? 'Yes' : 'No',
+      'Tried to press Reject': dodges + (dodges === 1 ? ' time' : ' times'),
+      'When': new Date().toLocaleString('en-GB')
+    }, 'heart,tada');
     document.getElementById('dateChoice').textContent = choice ? choice.value : 'Surprise me';
     document.getElementById('addonRow').hidden = !document.getElementById('mullet').checked;
     document.getElementById('decide').hidden = true;
@@ -791,6 +822,7 @@
   window.addEventListener('pageshow', e => { if (e.persisted) reset(); });
   window.addEventListener('hashchange', reset);
   reset();
+  send(who() + ' opened your application', { 'Name': who(), 'When': new Date().toLocaleString('en-GB') }, 'eyes');
 })();
 </script>
 </body>
