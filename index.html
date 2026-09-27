@@ -1,0 +1,709 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="Application for the Position of Boyfriend">
+<meta property="og:description" content="Form BF-1. Please review carefully.">
+<title>Form BF-1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Caveat:wght@500;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+  /* Deliberately single-theme: a pink carbon-copy form on a desk. */
+  :root {
+    color-scheme: light;
+    --desk: #26324a;
+    --desk-2: #1c2539;
+    --paper: #fde8ea;
+    --paper-line: #f3c9cf;
+    --print: #2a2438;
+    --print-soft: #6c5a6e;
+    --biro: #2447b8;
+    --stamp: #d3233a;
+    --stamp-soft: rgba(211, 35, 58, .12);
+    --ok: #1f7a4d;
+    --display: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+    --hand: "Caveat", "Segoe Print", "Bradley Hand", cursive;
+    --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { min-height: 100%; }
+  body {
+    margin: 0;
+    background:
+      radial-gradient(1200px 600px at 50% -10%, #33415f 0%, transparent 70%),
+      repeating-linear-gradient(90deg, rgba(255,255,255,.015) 0 2px, transparent 2px 9px),
+      var(--desk);
+    color: var(--print);
+    font-family: var(--display);
+    font-stretch: 100%;
+    padding-inline: 16px;
+    padding-block: 28px 48px;
+  }
+
+  .wrap { max-width: 720px; margin: 0 auto; display: grid; gap: 14px; }
+
+  .desk-note {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;
+    font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+    color: #aab6d3;
+  }
+  .desk-note b { color: #fff; font-weight: 600; }
+
+  /* ---------- the sheet ---------- */
+  .sheet {
+    position: relative;
+    background:
+      linear-gradient(transparent 0 calc(100% - 1px), var(--paper-line) 0) 0 0 / 100% 34px,
+      var(--paper);
+    border-radius: 3px;
+    box-shadow: 0 1px 0 #fff inset, 0 30px 60px -20px rgba(0,0,0,.55), 0 2px 6px rgba(0,0,0,.25);
+    padding: 28px clamp(18px, 5vw, 44px) 22px;
+    overflow: hidden;
+  }
+  .sheet::before { /* punched holes */
+    content: ""; position: absolute; left: 10px; top: 0; bottom: 0; width: 10px;
+    background: radial-gradient(circle, var(--desk-2) 0 4px, transparent 5px) 0 40px / 10px 120px repeat-y;
+    opacity: .9;
+  }
+  @media (max-width: 520px) { .sheet::before { display: none; } }
+
+  .timer { position: absolute; left: 0; top: 0; height: 3px; width: 0; background: var(--stamp); }
+
+  .formhead {
+    display: grid; grid-template-columns: 1fr auto; gap: 8px 16px; align-items: end;
+    border-bottom: 3px double var(--print); padding-bottom: 10px; margin-bottom: 18px;
+  }
+  .formhead .dept { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--print-soft); }
+  .formhead .no { font-family: var(--mono); font-size: 11px; text-align: right; line-height: 1.5; }
+  .formhead .no strong { display: block; font-family: var(--display); font-stretch: 70%; font-weight: 900; font-size: 26px; letter-spacing: .02em; }
+
+  .tabs { display: flex; gap: 4px; margin: 0 0 20px; }
+  .tabs button {
+    flex: 1; height: 8px; border: 0; padding: 0; border-radius: 2px; cursor: pointer;
+    background: rgba(42,36,56,.14); transition: background .3s;
+  }
+  .tabs button[aria-current="step"] { background: var(--stamp); }
+  .tabs button.done { background: var(--print); }
+  .tabs button:focus-visible { outline: 2px solid var(--biro); outline-offset: 3px; }
+
+  section[data-step] { animation: turnIn .5s cubic-bezier(.2,.8,.2,1) both; min-height: 380px; }
+  @keyframes turnIn { from { opacity: 0; transform: translateX(24px) rotate(.4deg); } to { opacity: 1; transform: none; } }
+
+  .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--stamp); margin: 0 0 6px; }
+  h1, h2 { font-stretch: 68%; font-weight: 900; text-transform: uppercase; line-height: .92; letter-spacing: -.005em; text-wrap: balance; margin: 0 0 14px; }
+  h1 { font-size: clamp(40px, 9vw, 72px); }
+  h2 { font-size: clamp(30px, 6.4vw, 46px); }
+  p.lede { font-size: 16px; line-height: 1.55; max-width: 58ch; color: var(--print-soft); margin: 0 0 18px; }
+
+  /* fields */
+  .fields { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px 22px; margin: 6px 0 18px; }
+  .fields .wide { grid-column: 1 / -1; }
+  @media (max-width: 560px) { .fields { grid-template-columns: 1fr; } }
+  .field { display: grid; gap: 2px; border-bottom: 1.5px solid var(--print); padding-bottom: 2px; }
+  .field label, .field .lbl { font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--print-soft); }
+  .hw {
+    font-family: var(--hand); font-weight: 700; color: var(--biro); font-size: 27px; line-height: 1.15;
+    display: inline-block; clip-path: inset(0 0 0 0);
+    animation: write .9s steps(18) both; animation-delay: var(--d, .2s);
+  }
+  @keyframes write { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+
+  /* checkboxes */
+  .checks { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px 22px; margin: 8px 0 4px; }
+  @media (max-width: 560px) { .checks { grid-template-columns: 1fr; } }
+  .check { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 500; }
+  .box { width: 22px; height: 22px; flex: none; border: 2px solid var(--print); border-radius: 2px; position: relative; }
+  .box svg { position: absolute; inset: -8px -6px -2px -2px; overflow: visible; }
+  .box path { fill: none; stroke: var(--biro); stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round;
+    stroke-dasharray: 40; stroke-dashoffset: 40; animation: tick .45s ease-out forwards; animation-delay: var(--d, .3s); }
+  @keyframes tick { to { stroke-dashoffset: 0; } }
+  .check.off { color: var(--print-soft); text-decoration: line-through; text-decoration-color: rgba(42,36,56,.35); }
+
+  .groupname { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; margin: 18px 0 6px; padding-top: 12px; border-top: 1px dashed rgba(42,36,56,.35); }
+
+  /* menu card */
+  .menu {
+    background: #fffaf6; border: 1.5px solid var(--print); padding: 20px clamp(16px, 4vw, 30px);
+    transform: rotate(-.6deg); box-shadow: 4px 5px 0 rgba(42,36,56,.12); margin: 6px 0 18px;
+  }
+  .menu h3 { font-stretch: 110%; font-weight: 800; text-align: center; letter-spacing: .28em; text-transform: uppercase; font-size: 13px; margin: 0 0 14px; }
+  .course { display: grid; gap: 6px; margin-bottom: 12px; }
+  .course .c { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--stamp); }
+  .dish { display: flex; align-items: baseline; gap: 8px; font-size: 16px; font-weight: 600; }
+  .dish::after { content: ""; order: 1; flex: 1; border-bottom: 2px dotted rgba(42,36,56,.35); transform: translateY(-4px); }
+  .dish span:last-child { order: 2; font-family: var(--mono); font-size: 12px; font-weight: 400; color: var(--print-soft); }
+  .menu .fine { font-family: var(--mono); font-size: 11px; color: var(--print-soft); text-align: center; margin: 12px 0 0; }
+
+  /* code */
+  .code-wrap { overflow-x: auto; margin: 4px 0 18px; border-radius: 4px; }
+  pre.code {
+    margin: 0; background: #221d30; color: #e9e3f5; padding: 16px 18px; font-family: var(--mono); font-size: 13px; line-height: 1.65;
+    min-width: max-content;
+  }
+  .k { color: #ff8fa3; } .s { color: #ffd98e; } .c { color: #8d84a6; font-style: italic; } .n { color: #9fd3ff; }
+
+  /* meters */
+  .meters { display: grid; gap: 12px; margin-bottom: 8px; }
+  .meter { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 10px; font-size: 14.5px; font-weight: 600; }
+  .meter .v { font-family: var(--mono); font-size: 12px; font-variant-numeric: tabular-nums; }
+  .bar { grid-column: 1 / -1; height: 10px; border: 1.5px solid var(--print); border-radius: 1px; background: #fff6f7; overflow: hidden; }
+  .bar i { display: block; height: 100%; width: var(--w); background: repeating-linear-gradient(-45deg, var(--print) 0 4px, #4a3f5e 4px 8px);
+    transform-origin: left; animation: grow 1s cubic-bezier(.2,.8,.2,1) both; animation-delay: var(--d, .2s); }
+  @keyframes grow { from { transform: scaleX(0); } }
+
+  /* references */
+  .refs { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin: 6px 0 16px; }
+  @media (max-width: 620px) { .refs { grid-template-columns: 1fr; } }
+  .ref { background: #fffaf6; border: 1.5px solid var(--print); padding: 14px; display: grid; gap: 8px; align-content: start; }
+  .ref:nth-child(2) { transform: rotate(.8deg); }
+  .ref:nth-child(3) { transform: rotate(-.7deg); }
+  .ref q { font-family: var(--hand); font-size: 23px; line-height: 1.1; color: var(--biro); font-weight: 700; quotes: "\201C" "\201D"; }
+  .ref .who { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--print-soft); display: flex; align-items: center; gap: 6px; }
+  .paw { width: 14px; height: 14px; fill: var(--stamp); flex: none; }
+
+  .perks { display: grid; gap: 8px; margin: 0 0 16px; padding: 0; list-style: none; }
+  .perks li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; font-size: 15.5px; line-height: 1.45; }
+  .perks li .paw { width: 18px; height: 18px; margin-top: 2px; }
+
+  /* disclosures */
+  .disc { counter-reset: d; display: grid; gap: 10px; padding: 0; margin: 4px 0 18px; list-style: none; }
+  .disc li { counter-increment: d; display: grid; grid-template-columns: 40px 1fr; gap: 10px; font-size: 15.5px; line-height: 1.45; padding-bottom: 10px; border-bottom: 1px dashed rgba(42,36,56,.3); }
+  .disc li::before { content: "F." counter(d); font-family: var(--mono); font-size: 12px; color: var(--stamp); padding-top: 3px; }
+  .disc small { display: block; font-family: var(--mono); font-size: 11px; color: var(--print-soft); margin-top: 2px; }
+
+  .sig { display: flex; align-items: end; gap: 14px; flex-wrap: wrap; margin-top: 8px; }
+  .sig .line { flex: 1; min-width: 200px; border-bottom: 1.5px solid var(--print); padding-bottom: 2px; }
+  .sig .hw { font-size: 40px; transform: rotate(-3deg); }
+  .sig .lbl { font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--print-soft); }
+
+  /* rubber stamps */
+  .stamp {
+    display: inline-block; font-stretch: 75%; font-weight: 900; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--stamp); border: 3px solid var(--stamp); padding: 4px 12px; border-radius: 4px;
+    transform: rotate(-8deg); mix-blend-mode: multiply; opacity: .85;
+    -webkit-mask: radial-gradient(circle at 30% 40%, #000 60%, transparent 61%) 0 0 / 5px 5px, linear-gradient(#000, #000);
+    -webkit-mask-composite: source-over;
+  }
+  .stamp.corner { position: absolute; right: clamp(12px, 4vw, 36px); top: 118px; font-size: 18px; }
+  @media (max-width: 560px) { .stamp.corner { top: 104px; font-size: 14px; } }
+
+  /* decision */
+  .datepick { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 20px; }
+  .datepick input { position: absolute; opacity: 0; pointer-events: none; }
+  .datepick label {
+    cursor: pointer; border: 1.5px solid var(--print); border-radius: 999px; padding: 8px 14px; font-size: 14.5px; font-weight: 600;
+    background: #fffaf6; transition: background .15s, color .15s, transform .15s;
+  }
+  .datepick label:hover { transform: translateY(-1px); }
+  .datepick input:checked + label { background: var(--print); color: var(--paper); }
+  .datepick input:focus-visible + label { outline: 2px solid var(--biro); outline-offset: 2px; }
+
+  .verdict { position: relative; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; min-height: 64px; }
+  .btn {
+    font: inherit; font-stretch: 80%; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; font-size: 16px;
+    border: 2px solid var(--print); background: var(--paper); color: var(--print); padding: 12px 20px; border-radius: 3px;
+    cursor: pointer; box-shadow: 3px 3px 0 var(--print); transition: transform .12s, box-shadow .12s;
+  }
+  .btn:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--print); }
+  .btn:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--print); }
+  .btn:focus-visible { outline: 2px solid var(--biro); outline-offset: 3px; }
+  .btn.primary { background: var(--stamp); border-color: var(--stamp); color: #fff; box-shadow: 3px 3px 0 var(--print); }
+  .btn.ghost { box-shadow: none; background: transparent; border-color: transparent; text-decoration: underline; text-underline-offset: 4px; padding-inline: 8px; }
+  #reject { transition: transform .25s cubic-bezier(.3,1.6,.5,1); position: relative; }
+
+  .result { display: grid; gap: 12px; justify-items: start; margin-top: 8px; }
+  .big-stamp { font-size: clamp(44px, 12vw, 84px); padding: 4px 22px; border-width: 6px; animation: slam .45s cubic-bezier(.2,1.4,.4,1) both; }
+  @keyframes slam { from { transform: rotate(-8deg) scale(2.4); opacity: 0; } to { transform: rotate(-8deg) scale(1); opacity: .88; } }
+  .result p { margin: 0; font-size: 16px; line-height: 1.55; max-width: 52ch; }
+  .result .hw { font-size: 30px; }
+
+  /* mixtape J-card */
+  .tape {
+    background: #221d30; color: #efe8f7; border-radius: 4px; padding: 18px clamp(16px, 4vw, 26px);
+    transform: rotate(.5deg); box-shadow: 4px 5px 0 rgba(42,36,56,.18); margin: 6px 0 20px;
+    display: grid; gap: 16px;
+  }
+  .tape-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; border-bottom: 2px solid var(--stamp); padding-bottom: 10px; }
+  .tape-title { font-family: var(--hand); font-weight: 700; font-size: 30px; color: #ffd98e; line-height: 1; }
+  .tape-meta { font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: #9d93b5; }
+  .sides { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px 26px; }
+  @media (max-width: 560px) { .sides { grid-template-columns: 1fr; } }
+  .side { display: grid; gap: 6px; align-content: start; }
+  .side-lbl { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: #ff8fa3; }
+  .side-note { margin: 0; font-size: 13.5px; color: #b8aecd; }
+  .side ol { margin: 4px 0 0; padding-left: 22px; display: grid; gap: 3px; font-size: 15px; font-weight: 600; }
+  .side ol li::marker { font-family: var(--mono); font-size: 11px; color: #9d93b5; }
+  .bonus { border-top: 1px dashed rgba(239,232,247,.25); padding-top: 12px; display: grid; gap: 4px; }
+  .bonus p { margin: 0; font-size: 14.5px; line-height: 1.5; }
+
+  /* her requirements */
+  .reqs { display: grid; gap: 10px; }
+  .req { display: grid; grid-template-columns: 22px 1fr auto; gap: 12px; align-items: start; padding: 12px 0; border-bottom: 1px dashed rgba(42,36,56,.3); }
+  .req b { font-size: 17px; }
+  .req small { display: block; font-size: 14px; line-height: 1.45; color: var(--print-soft); margin-top: 2px; }
+  .tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; padding: 3px 8px; border: 1.5px solid var(--print-soft); color: var(--print-soft); border-radius: 2px; transform: rotate(-3deg); }
+  .tag.ok { border-color: var(--ok); color: var(--ok); }
+
+  .addon { display: flex; align-items: center; gap: 10px; font-size: 14.5px; font-weight: 600; margin: -6px 0 18px; cursor: pointer; }
+  .addon input { width: 20px; height: 20px; accent-color: var(--stamp); margin: 0; }
+
+  .next-step { display: grid; gap: 8px; margin-top: 10px; padding: 16px 18px; background: #fffaf6; border: 2px solid var(--stamp); width: 100%; }
+  .next-step .eyebrow { margin: 0; }
+  .phone { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  .phone span { font-family: var(--mono); font-weight: 600; font-size: clamp(22px, 6vw, 30px); letter-spacing: .04em; user-select: all; font-variant-numeric: tabular-nums; }
+  .phone .btn { padding: 8px 14px; font-size: 13px; }
+
+  /* nav */
+  .nav { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 18px; padding-top: 14px; border-top: 3px double var(--print); }
+  .nav .count { font-family: var(--mono); font-size: 12px; font-variant-numeric: tabular-nums; color: var(--print-soft); }
+  .nav .btn { padding: 10px 16px; font-size: 14px; }
+  .nav .btn[disabled] { opacity: .3; pointer-events: none; }
+
+  .controls { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+  .pill {
+    font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+    color: #dfe5f5; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.18);
+    padding: 8px 14px; border-radius: 999px; cursor: pointer;
+  }
+  .pill:hover { background: rgba(255,255,255,.14); }
+  .pill:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+  .cover-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+
+  .heart { position: fixed; top: -30px; pointer-events: none; color: var(--stamp); font-family: var(--display); font-weight: 900; z-index: 10;
+    animation: fall linear forwards; }
+  @keyframes fall { to { transform: translateY(110vh) rotate(var(--r)); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="desk-note">
+    <span>Confidential &middot; <b>for your eyes only</b></span>
+    <span id="deskdate"></span>
+  </div>
+
+  <main class="sheet" id="sheet" aria-live="polite">
+    <div class="timer" id="timer"></div>
+
+    <header class="formhead">
+      <div class="dept">Department of Matters of the Heart<br>Hinge Division &middot; Recruitment Office</div>
+      <div class="no"><strong>BF-1</strong>Rev. 2026</div>
+    </header>
+
+    <nav class="tabs" id="tabs" aria-label="Form sections"></nav>
+
+    <!-- 0 · Cover -->
+    <section data-step="0" data-name="Cover">
+      <p class="eyebrow">Application for employment</p>
+      <h1>Position of<br>Boyfriend</h1>
+      <p class="lede">One (1) applicant is formally requesting consideration for the role. Please review each section, then complete the office-use box at the end. It takes about a minute.</p>
+      <div class="fields">
+        <div class="field"><span class="lbl">Submitted to</span><span class="hw" id="toName" style="--d:.3s">You, from Hinge</span></div>
+        <div class="field"><span class="lbl">Applicant</span><span class="hw" style="--d:.9s">Ryan</span></div>
+        <div class="field wide"><span class="lbl">Reason for applying</span><span class="hw" style="--d:1.5s">Your profile was the best thing on my phone this week.</span></div>
+      </div>
+      <div class="cover-actions">
+        <button class="btn primary" type="button" data-go="1">Review application</button>
+        <button class="btn" type="button" id="playBtn2">Watch it play</button>
+      </div>
+    </section>
+
+    <!-- 1 · Applicant details -->
+    <section data-step="1" data-name="Details" hidden>
+      <p class="eyebrow">Section A</p>
+      <h2>Applicant details</h2>
+      <div class="fields">
+        <div class="field"><span class="lbl">Full name</span><span class="hw" style="--d:.2s">Ryan</span></div>
+        <div class="field"><span class="lbl">Day job</span><span class="hw" style="--d:.6s">Software developer</span></div>
+        <div class="field wide"><span class="lbl">Side hustle</span><span class="hw" style="--d:1s">Owns a dog boarding business</span></div>
+      </div>
+
+      <div class="groupname">A.4 &nbsp;Housing status (tick one)</div>
+      <div class="checks">
+        <div class="check"><span class="box"><svg viewBox="0 0 30 30"><path style="--d:1.5s" d="M5 16 L12 23 L27 4"/></svg></span>Homeowner</div>
+        <div class="check off"><span class="box"></span>Lives with parents</div>
+        <div class="check off"><span class="box"></span>Sofa-surfing "between places"</div>
+        <div class="check off"><span class="box"></span>Houseshare with 7 blokes</div>
+      </div>
+
+      <div class="groupname">A.5 &nbsp;Kitchen ability (tick one)</div>
+      <div class="checks">
+        <div class="check"><span class="box"><svg viewBox="0 0 30 30"><path style="--d:1.9s" d="M5 16 L12 23 L27 4"/></svg></span>Actually cooks. Properly.</div>
+        <div class="check off"><span class="box"></span>Beans on toast</div>
+      </div>
+    </section>
+
+    <!-- 2 · Cooking -->
+    <section data-step="2" data-name="Cooking" hidden>
+      <p class="eyebrow">Section B</p>
+      <h2>Culinary qualifications</h2>
+      <p class="lede">The applicant can cook. Below is a sample tasting menu, available to the successful candidate on request.</p>
+      <div class="menu">
+        <h3>Chez Ryan &middot; Tasting Menu</h3>
+        <div class="course"><span class="c">Signature dishes &middot; choose one</span>
+          <div class="dish"><span>Carbonara, the proper way (no cream)</span><span>free</span></div>
+          <div class="dish"><span>Steak, cooked how you like it</span><span>free</span></div>
+          <div class="dish"><span>Sunday roast with all the trimmings</span><span>free</span></div>
+        </div>
+        <p class="fine">Washing up included &middot; Dietary requirements taken seriously &middot; No reservation needed</p>
+      </div>
+      <div class="fields">
+        <div class="field"><span class="lbl">Takeaway dependency</span><span class="hw" style="--d:.4s">Low</span></div>
+        <div class="field"><span class="lbl">Breakfast in bed</span><span class="hw" style="--d:.8s">Available</span></div>
+      </div>
+    </section>
+
+    <!-- 3 · Software -->
+    <section data-step="3" data-name="Tech" hidden>
+      <p class="eyebrow">Section C</p>
+      <h2>Technical skills</h2>
+      <p class="lede">Applicant is a software developer. Relevant experience is attached below in the applicant's native language.</p>
+      <div class="code-wrap"><pre class="code"><span class="k">const</span> <span class="n">ryan</span> = {
+  job: <span class="s">"software developer"</span>,
+  willFix: [<span class="s">"your wifi"</span>, <span class="s">"your printer"</span>, <span class="s">"your mum's laptop"</span>],
+  bugs: <span class="n">0</span>, <span class="c">// in this relationship, anyway</span>
+};
+
+<span class="k">if</span> (you.hungry) ryan.cook();
+<span class="k">if</span> (you.bored)  ryan.planDate();
+<span class="k">while</span> (!you.smiling) ryan.tryHarder();</pre></div>
+      <div class="meters">
+        <div class="meter"><span>Replying to messages</span><span class="v">98%</span><div class="bar"><i style="--w:98%;--d:.2s"></i></div></div>
+        <div class="meter"><span>Remembering what you told me</span><span class="v">100%</span><div class="bar"><i style="--w:100%;--d:.4s"></i></div></div>
+        <div class="meter"><span>Flat-pack furniture, no screws left over</span><span class="v">91%</span><div class="bar"><i style="--w:91%;--d:.6s"></i></div></div>
+        <div class="meter"><span>Explaining what I do at work</span><span class="v">34%</span><div class="bar"><i style="--w:34%;--d:.8s"></i></div></div>
+      </div>
+    </section>
+
+    <!-- 4 · Dogs -->
+    <section data-step="4" data-name="Dogs" hidden>
+      <p class="eyebrow">Section D</p>
+      <h2>Benefits package</h2>
+      <p class="lede">Applicant runs a dog boarding business. This comes with perks.</p>
+      <ul class="perks">
+        <li><svg class="paw" viewBox="0 0 24 24" aria-hidden="true"><use href="#paw"/></svg><span><b>Unlimited dog cuddles.</b> A rotating selection of good boys and girls, so it never gets boring.</span></li>
+        <li><svg class="paw" viewBox="0 0 24 24" aria-hidden="true"><use href="#paw"/></svg><span><b>All the fun, none of the vet bills.</b> They go home at the end of their stay.</span></li>
+        <li><svg class="paw" viewBox="0 0 24 24" aria-hidden="true"><use href="#paw"/></svg><span><b>Self-employed.</b> Knows how to show up, look after things, and keep clients happy.</span></li>
+      </ul>
+      <div class="groupname">D.2 &nbsp;References from previous clients</div>
+      <div class="refs">
+        <div class="ref"><q>He gave me the good blanket.</q><span class="who"><svg class="paw" viewBox="0 0 24 24" aria-hidden="true"><use href="#paw"/></svg>Cockapoo, 4</span></div>
+        <div class="ref"><q>Walks on time. Treats generous. Five stars.</q><span class="who"><svg class="paw" viewBox="0 0 24 24" aria-hidden="true"><use href="#paw"/></svg>Border Collie, 6</span></div>
+        <div class="ref"><q>Woof.</q><span class="who"><svg class="paw" viewBox="0 0 24 24" aria-hidden="true"><use href="#paw"/></svg>Labrador, repeat guest</span></div>
+      </div>
+    </section>
+
+    <!-- 5 · Green flags -->
+    <section data-step="5" data-name="Checks" hidden>
+      <p class="eyebrow">Section E</p>
+      <h2>Background checks</h2>
+      <p class="lede">The office has verified the following. All checks passed.</p>
+      <div class="checks">
+        <div class="check"><span class="box"><svg viewBox="0 0 30 30"><path style="--d:.2s" d="M5 16 L12 23 L27 4"/></svg></span>Owns a home (with a fridge that has food in it)</div>
+        <div class="check"><span class="box"><svg viewBox="0 0 30 30"><path style="--d:.45s" d="M5 16 L12 23 L27 4"/></svg></span>Steady job</div>
+        <div class="check"><span class="box"><svg viewBox="0 0 30 30"><path style="--d:.7s" d="M5 16 L12 23 L27 4"/></svg></span>Runs own business</div>
+        <div class="check"><span class="box"><svg viewBox="0 0 30 30"><path style="--d:.95s" d="M5 16 L12 23 L27 4"/></svg></span>Cooks real food</div>
+        <div class="check"><span class="box"><svg viewBox="0 0 30 30"><path style="--d:1.2s" d="M5 16 L12 23 L27 4"/></svg></span>Good with animals (professionally)</div>
+        <div class="check"><span class="box"><svg viewBox="0 0 30 30"><path style="--d:1.45s" d="M5 16 L12 23 L27 4"/></svg></span>Plans actual dates</div>
+        <div class="check"><span class="box"><svg viewBox="0 0 30 30"><path style="--d:1.7s" d="M5 16 L12 23 L27 4"/></svg></span>Texts back</div>
+        <div class="check"><span class="box"><svg viewBox="0 0 30 30"><path style="--d:1.95s" d="M5 16 L12 23 L27 4"/></svg></span>Owns more than one towel</div>
+      </div>
+      <div class="fields" style="margin-top:22px">
+        <div class="field wide"><span class="lbl">Inspector's comments</span><span class="hw" style="--d:2.3s">Honestly, a bit of a catch.</span></div>
+      </div>
+    </section>
+
+    <!-- 6 · Her requirements -->
+    <section data-step="6" data-name="Requirements" hidden>
+      <p class="eyebrow">Section E.2</p>
+      <h2>Candidate's stated requirements</h2>
+      <p class="lede">Per your profile, the ideal man has a mullet, a moustache and a fully developed frontal lobe. The office has assessed the applicant against each one.</p>
+      <div class="reqs">
+        <div class="req">
+          <span class="box"><svg viewBox="0 0 30 30"><path style="--d:.3s" d="M5 16 L12 23 L27 4"/></svg></span>
+          <div><b>Developed frontal lobe</b><small>Verified. Makes plans, pays bills, owns a house, and uses his words when upset.</small></div>
+          <span class="tag ok">Met</span>
+        </div>
+        <div class="req">
+          <span class="box"></span>
+          <div><b>Mullet</b><small>Business at the front. Currently also business at the back. Can be grown on request, allow 6 to 8 months.</small></div>
+          <span class="tag">Pending</span>
+        </div>
+        <div class="req">
+          <span class="box"></span>
+          <div><b>Moustache</b><small>Not currently installed. Estimated delivery: about 3 weeks after approval.</small></div>
+          <span class="tag">Pending</span>
+        </div>
+      </div>
+      <div class="fields" style="margin-top:20px">
+        <div class="field wide"><span class="lbl">Score</span><span class="hw" style="--d:.9s">1 out of 3, but it's the one you can't grow.</span></div>
+      </div>
+    </section>
+
+    <!-- 7 · Music -->
+    <section data-step="7" data-name="Music" hidden>
+      <p class="eyebrow">Section G</p>
+      <h2>Personal interests</h2>
+      <p class="lede">The applicant has submitted a mixtape as supporting evidence of good taste. Music will be played in the car. Please review both sides.</p>
+      <div class="tape">
+        <div class="tape-head">
+          <span class="tape-title">Ryan's Mix &middot; Vol. 1</span>
+          <span class="tape-meta">C90 &middot; Type II &middot; Chrome</span>
+        </div>
+        <div class="sides">
+          <div class="side">
+            <span class="side-lbl">Side A &middot; Favourite band</span>
+            <p class="side-note">Fontaines D.C. Yes, "the Fontaines".</p>
+            <ol>
+              <li>I Love You</li>
+              <li>Jackie Down the Line</li>
+              <li>Favourite</li>
+              <li>Here's the Thing</li>
+              <li>Starburster</li>
+            </ol>
+          </div>
+          <div class="side">
+            <span class="side-lbl">Side B &middot; Everything else</span>
+            <p class="side-note">Billy Ocean to Twenty One Pilots. Range.</p>
+            <ol>
+              <li>Billy Ocean &ndash; Red Light Spells Danger</li>
+              <li>Toto &ndash; Hold the Line</li>
+              <li>Sean Paul ft. Keyshia Cole &ndash; Give It Up to Me</li>
+              <li>Train &ndash; 50 Ways to Say Goodbye</li>
+              <li>Twenty One Pilots &ndash; Paladin Strait</li>
+            </ol>
+          </div>
+        </div>
+        <div class="bonus">
+          <span class="side-lbl">Bonus tracks &middot; "white girl music"</span>
+          <p>Mr. Brightside &middot; Fleetwood Mac &ndash; Dreams &middot; ABBA, all of it &middot; Taylor Swift, no apologies</p>
+        </div>
+      </div>
+      <div class="fields">
+        <div class="field"><span class="lbl">Musicals</span><span class="hw" style="--d:.3s">Big fan. Will sing along.</span></div>
+        <div class="field"><span class="lbl">Older music</span><span class="hw" style="--d:.7s">Born in the wrong decade</span></div>
+        <div class="field wide"><span class="lbl">Aux cord privileges</span><span class="hw" style="--d:1.1s">Will share. Reluctantly, then happily.</span></div>
+      </div>
+    </section>
+
+    <!-- 8 · Disclosures -->
+    <section data-step="8" data-name="Disclosures" hidden>
+      <p class="eyebrow">Section F</p>
+      <h2>Full disclosure</h2>
+      <p class="lede">In the interest of transparency, the applicant declares the following known issues.</p>
+      <ol class="disc">
+        <li><span>Talks to the dogs in a special voice.<small>Will also talk to you in a normal voice.</small></span></li>
+        <li><span>Says "one more episode" and means four.</span></li>
+        <li><span>Will perform the big number from a musical in the car.<small>Full volume. Harmonies optional but encouraged.</small></span></li>
+        <li><span>Will steal a chip off your plate.<small>Mitigation: will also make you better chips.</small></span></li>
+        <li><span>Has strong opinions about tabs vs spaces.<small>Will not bring this up on the first date. Probably.</small></span></li>
+      </ol>
+      <div class="sig">
+        <div class="line"><span class="hw" style="--d:.4s">Ryan</span></div>
+        <span class="lbl">Signature of applicant</span>
+      </div>
+    </section>
+
+    <!-- 9 · Decision -->
+    <section data-step="9" data-name="Decision" hidden>
+      <p class="eyebrow">For office use only</p>
+      <h2>Your decision</h2>
+      <div id="decide">
+        <p class="lede">Step 1: choose a first date. Step 2: make it official.</p>
+        <div class="datepick" role="radiogroup" aria-label="First date">
+          <input type="radio" name="date" id="d1" value="Ryan cooks you dinner" checked><label for="d1">He cooks (carbonara, steak or a roast)</label>
+          <input type="radio" name="date" id="d2" value="Drinks somewhere nice"><label for="d2">Drinks somewhere nice</label>
+          <input type="radio" name="date" id="d3" value="A walk with the dogs"><label for="d3">Walk with the dogs</label>
+          <input type="radio" name="date" id="d4" value="Surprise me"><label for="d4">Surprise me</label>
+        </div>
+        <label class="addon" for="mullet"><input type="checkbox" id="mullet"> Optional add-on: applicant grows the mullet and moustache</label>
+        <div class="verdict" id="verdict">
+          <button class="btn primary" type="button" id="approve">Approve application</button>
+          <button class="btn" type="button" id="reject">Reject</button>
+        </div>
+      </div>
+      <div class="result" id="result" hidden>
+        <span class="stamp big-stamp">Approved</span>
+        <p>Application accepted. The applicant has been notified that he got the job.*</p>
+        <div class="field" style="min-width:min(100%,360px)"><span class="lbl">First date</span><span class="hw" id="dateChoice">Ryan cooks you dinner</span></div>
+        <div class="field" id="addonRow" style="min-width:min(100%,360px)" hidden><span class="lbl">Add-ons</span><span class="hw">Mullet &amp; moustache (allow 6 months)</span></div>
+        <p style="font-family:var(--mono);font-size:12px;color:var(--print-soft)">*He hasn't yet. That part's on you, see below.</p>
+        <div class="next-step">
+          <p class="eyebrow">Final step &middot; confirm your booking</p>
+          <p>Send me a <b>time and date</b> in a reply on Hinge, or text me on:</p>
+          <div class="phone">
+            <span id="phone">08592 059470</span>
+            <button class="btn" type="button" id="copyPhone">Copy number</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="nav">
+      <button class="btn" type="button" id="prev">&larr; Back</button>
+      <span class="count" id="count">0 / 9</span>
+      <button class="btn" type="button" id="next">Next &rarr;</button>
+    </div>
+  </main>
+
+  <div class="controls">
+    <button class="pill" type="button" id="playBtn">&#9654; Watch it play</button>
+  </div>
+</div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="paw" viewBox="0 0 24 24">
+    <ellipse cx="6" cy="9" rx="2.2" ry="2.8"/><ellipse cx="10" cy="5.2" rx="2.2" ry="2.9"/>
+    <ellipse cx="14.5" cy="5.2" rx="2.2" ry="2.9"/><ellipse cx="18.4" cy="9" rx="2.2" ry="2.8"/>
+    <path d="M12.2 11c-3 0-6 3.6-6 6.3 0 2 1.6 2.9 3.2 2.9 1.2 0 1.9-.6 2.8-.6s1.6.6 2.8.6c1.6 0 3.2-.9 3.2-2.9 0-2.7-3-6.3-6-6.3z"/>
+  </symbol>
+</svg>
+
+<script>
+(function () {
+  const steps = [...document.querySelectorAll('section[data-step]')];
+  const last = steps.length - 1;
+  const tabs = document.getElementById('tabs');
+  const prev = document.getElementById('prev');
+  const next = document.getElementById('next');
+  const count = document.getElementById('count');
+  const timer = document.getElementById('timer');
+  const playBtn = document.getElementById('playBtn');
+  let cur = 0, playing = false, playT = null;
+
+  // Personalise: share the link with #Name on the end
+  const raw = decodeURIComponent((location.hash || '').slice(1)).replace(/[^A-Za-z\- ]/g, '').trim();
+  if (raw) {
+    const name = raw.charAt(0).toUpperCase() + raw.slice(1);
+    document.getElementById('toName').textContent = name;
+  }
+  document.getElementById('deskdate').textContent =
+    new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+  steps.forEach((s, i) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('aria-label', s.dataset.name);
+    b.title = s.dataset.name;
+    b.addEventListener('click', () => { stop(); go(i); });
+    tabs.appendChild(b);
+  });
+
+  function go(i) {
+    cur = Math.max(0, Math.min(last, i));
+    steps.forEach((s, j) => { s.hidden = j !== cur; });
+    [...tabs.children].forEach((b, j) => {
+      b.classList.toggle('done', j < cur);
+      if (j === cur) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
+    });
+    prev.disabled = cur === 0;
+    next.disabled = cur === last;
+    count.textContent = cur + ' / ' + last;
+    if (window.scrollY > 60) document.getElementById('sheet').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function tick() {
+    timer.style.transition = 'none'; timer.style.width = '0';
+    void timer.offsetWidth;
+    timer.style.transition = 'width 6.5s linear'; timer.style.width = '100%';
+    playT = setTimeout(() => {
+      go(cur + 1);
+      if (cur < last) tick(); else stop();
+    }, 6500);
+  }
+  function play() {
+    playing = true;
+    playBtn.innerHTML = '&#10074;&#10074; Pause';
+    if (cur === last) go(0);
+    if (cur === 0) go(1);
+    tick();
+  }
+  function stop() {
+    playing = false; clearTimeout(playT);
+    timer.style.transition = 'none'; timer.style.width = '0';
+    playBtn.innerHTML = '&#9654; Watch it play';
+  }
+  playBtn.addEventListener('click', () => playing ? stop() : play());
+  document.getElementById('playBtn2').addEventListener('click', play);
+  prev.addEventListener('click', () => { stop(); go(cur - 1); });
+  next.addEventListener('click', () => { stop(); go(cur + 1); });
+  document.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => { stop(); go(+b.dataset.go); }));
+  document.addEventListener('keydown', e => {
+    if (e.target.matches('input')) return;
+    if (e.key === 'ArrowRight') { stop(); go(cur + 1); }
+    if (e.key === 'ArrowLeft')  { stop(); go(cur - 1); }
+  });
+
+  // The reject button would rather not be pressed
+  const reject = document.getElementById('reject');
+  const verdict = document.getElementById('verdict');
+  const lines = ['Reject', 'Are you sure?', 'Really?', 'Think of the dogs', 'He does a mean carbonara', 'OK fine, approve'];
+  let dodges = 0;
+  function dodge(e) {
+    if (dodges >= lines.length - 1) return;
+    e.preventDefault();
+    dodges++;
+    reject.textContent = lines[dodges];
+    const w = verdict.clientWidth - reject.offsetWidth;
+    const x = Math.round((Math.random() * 0.8 + 0.1) * Math.max(w, 60) - reject.offsetLeft);
+    const y = Math.round((Math.random() - 0.5) * 50);
+    reject.style.transform = `translate(${x}px, ${y}px) rotate(${(Math.random() - .5) * 14}deg)`;
+    if (dodges === lines.length - 1) {
+      reject.style.transform = 'none';
+      reject.classList.add('primary');
+    }
+  }
+  reject.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') dodge(e); });
+  reject.addEventListener('click', e => {
+    if (dodges >= lines.length - 1) approve(); else dodge(e);
+  });
+
+  function approve() {
+    const choice = document.querySelector('input[name="date"]:checked');
+    document.getElementById('dateChoice').textContent = choice ? choice.value : 'Surprise me';
+    document.getElementById('addonRow').hidden = !document.getElementById('mullet').checked;
+    document.getElementById('decide').hidden = true;
+    document.getElementById('result').hidden = false;
+    [...tabs.children][last].classList.add('done');
+    hearts();
+  }
+  document.getElementById('approve').addEventListener('click', approve);
+
+  const copyBtn = document.getElementById('copyPhone');
+  copyBtn.addEventListener('click', () => {
+    const num = '08592059470';
+    const done = () => { copyBtn.textContent = 'Copied'; setTimeout(() => copyBtn.textContent = 'Copy number', 1800); };
+    const fallback = () => { const r = document.createRange(); r.selectNodeContents(document.getElementById('phone')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); };
+    try { navigator.clipboard.writeText(num).then(done, fallback); } catch (e) { fallback(); }
+  });
+
+  function hearts() {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    for (let i = 0; i < 60; i++) {
+      const h = document.createElement('span');
+      h.className = 'heart';
+      h.textContent = '♥';
+      h.style.left = Math.random() * 100 + 'vw';
+      h.style.fontSize = (14 + Math.random() * 26) + 'px';
+      h.style.opacity = .55 + Math.random() * .45;
+      h.style.setProperty('--r', ((Math.random() - .5) * 720) + 'deg');
+      h.style.animationDuration = (2.4 + Math.random() * 2.4) + 's';
+      h.style.animationDelay = (Math.random() * 1.2) + 's';
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 6500);
+    }
+  }
+
+  go(0);
+})();
+</script>
+</body>
+</html>
